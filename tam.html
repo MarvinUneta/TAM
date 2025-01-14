@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tam - Your Gaming PC Build Assistant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+            color: #ffffff;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        
+
+            /* Welcome Text CSS */
+            * {
+            margin: 0;
+            padding: 0;
+            }
+            body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+            }
+
+        p {
+            font-weight: 700;
+            text-align: center;
+            font-size: 40px;
+            font-family: Hack, sans-serif;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #000, #fff, #000);
+            letter-spacing: 5px;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-repeat: no-repeat;
+            background-size: 80%;
+            animation: shine 5s linear infinite;
+            position: relative;
+    }
+
+        @keyframes shine {
+        0% {
+            background-position-x: -500%;
+            }
+        100% {
+            background-position-x: 500%;
+            }
+        }
+
+            /* Logo styling */
+            .logo {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 120px; /* Adjust size as needed */
+                margin-bottom: 20px;
+                z-index: 10; /* Ensures the logo is on top */
+            }
+
+            /* Bouncing button animation */
+            #get-started-btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff !important; /* Cyan text */
+            background-color: #000000 !important; /* Black background */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            animation: bounce 1s infinite;
+            position: absolute;
+            left: 775px;
+            top: 500px;
+        }
+
+        #get-started-btn:hover {
+            background-color: #000000 !important; /* Keep black background on hover */
+            color: #c7c7c7 !important; /* Keep cyan text on hover */
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+        transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px); /* Slight bounce up */
+            }
+        }
+
+
+        /* Chat container fade-in animation */
+        #chat-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 400px;
+            height: 600px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            opacity: 0; /* Initially invisible */
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }    
+
+        /* Marquee Container Styles */
+        #marquee-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30px; /* Adjust height as needed */
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+    }
+
+        /* Marquee Text Styles */
+        #marquee-text {
+            position: absolute;
+            white-space: nowrap;
+            color: #ffffff;
+            font-size: 16px;
+            animation: scroll-bottom-right-to-left 10s linear infinite;
+        }
+
+        /* Keyframes for bottom-right to bottom-left scrolling */
+        @keyframes scroll-bottom-right-to-left {
+            0% {
+            right: -100%; /* Start from outside the right */
+            }
+            100% {
+                right: 100%; /* Exit to the left */
+            }
+        }
+
+        /* Default Neon Light Effect (Dark Mode) */
+        .neon-light {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.5); /* White for dark mode */
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            animation: glow 1s forwards;
+        }
+
+        /* Neon Light Effect for Light Mode */
+        body.light-mode .neon-light {
+            background-color: rgba(0, 0, 0, 0.5); /* Black for light mode */
+        }
+
+        @keyframes glow {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            00% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #1f1f1f;
+            color: #ffffff;
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #000000;
+        }
+
+        /* Glassmorphism Container */
+        #chat-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 800px;
+            height: 720px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            display: none;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header */
+        #header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff !important;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .dark-mode #chat-container {
+            background-color: #2b2b2b;
+        }
+
+        .light-mode #chat-container {
+            background-color: #ffffff;
+        }
+
+        #header {
+            background-color: #3a3a3a;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ffcc;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #chatbox {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 2px solid #3a3a3a;
+        }
+
+        .message {
+            margin: 8px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user {
+            align-items: flex-end;
+            color: #00bfff;
+        }
+
+        .bot {
+            align-items: flex-start;
+            color: #ffffff;
+        }
+
+        .message-text {
+            padding: 8px;
+            border-radius: 10px;
+            background-color: #3a3a3a;
+            max-width: 80%;
+        }
+
+        .user .message-text {
+            background-color: #00bfff;
+            color: #ffffff;
+        }
+
+        /* Input and Buttons */
+        #input-container {
+            padding: 10px;
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        #send-btn {
+            margin-left: 10px;
+            padding: 8px 13px;
+            font-size: 16px;
+            background-color: #00ffcc;
+            color: #1f1f1f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #send-btn:hover {
+            background-color: #00d4aa;
+        }
+
+        #chatbox::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chatbox::-webkit-scrollbar-thumb {
+            background-color: #00ffcc;
+            border-radius: 10px;
+        }
+
+        /* Get Started Button */
+        #get-started-btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #00ffcc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #get-started-btn:hover {
+            background-color: #00d4aa;
+        }
+
+        #button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Clear History Button */
+        #clear-history-btn {
+            padding: 8px 13px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #ff3b3b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #clear-history-btn:hover {
+            background-color: #e63636;
+        }
+
+        /* Light/Dark Mode Toggle Button */
+        #mode-toggle {
+            position: absolute; /* Position in the upper right corner */
+            top: 10px; 
+            right: 10px;
+            width: 40px; /* Set width and height */
+            height: 40px;
+            background-color: transparent; /* No background */
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #mode-toggle:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+        }
+
+        /* Icon for Light Mode (Sun) and Dark Mode (Moon) */
+        #mode-toggle.light-mode-btn::before {
+            content: "\2600";  /* Sun icon */
+            font-size: 24px; /* Adjust size */
+        }
+
+        #mode-toggle.dark-mode-btn::before {
+            content: "\1F319";  /* Moon icon */
+            font-size: 24px; /* Adjust size */
+        }
+
+        /* Button for developer page */
+        #developer-page-btn {
+            display: none;
+            bottom: 50px;
+            right: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff !important; /* Cyan text */
+            background-color: #000000 !important; /* Black background */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            animation: bounce 1s infinite;
+            position: absolute;
+        }
+
+        /* Fade-out animation */
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    /* Apply fade-out when the class is added */
+    .fade-out {
+        animation: fadeOut 1s forwards;
+    }
+
+
+        #developer-page-btn:hover {
+            background-color: #00d4aa;
+        }
+
+    </style>
+</head>
+<body>
+
+<img src="TAm.png" alt="Logo" class="logo">
+<p>Welcome, I am Tam.<br> Your AI GAMING PC BUILDER</br></p>
+<div id="button-container">
+    <button id="get-started-btn">Get Started</button>
+</div>
+
+<div id="chat-container">
+    <div id="header">Tam - Your AI Gaming PC Builder</div>
+    <div id="chatbox"></div>
+    <div id="input-container">
+        <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+        <button id="send-btn">Send</button>
+        <button id="clear-history-btn">Clear History</button>
+    </div>
+</div>
+
+
+<!--<div id="marquee-container">
+    <div id="marquee-text">Shout-out kay Gwen! Thank you sa pag sponsor ng Jabi at Starbs. Nabusog kame.</div>
+</div>-->
+
+<!-- Button to open the developers page -->
+<button id="developer-page-btn" onclick="window.location.href='developers.html';">Meet the Developers</button>
+
+<!-- Light/Dark Mode Toggle Button placed outside the chat-container -->
+<button id="mode-toggle" class="dark-mode-btn"></button>
+
+<script>
+    const chatbox = document.getElementById('chatbox');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const getStartedBtn = document.getElementById('get-started-btn');
+    const buttonContainer = document.getElementById('button-container');
+    const chatContainer = document.getElementById('chat-container');
+    const clearHistoryBtn = document.getElementById('clear-history-btn');
+    const modeToggle = document.getElementById('mode-toggle');
+
+    let isDarkMode = true;
+
+    // Neon effect on cursor movement
+    document.body.addEventListener('mousemove', (event) => {
+        const neonLight = document.createElement('div');
+        neonLight.classList.add('neon-light');
+        neonLight.style.top = `${event.clientY - -15}px`;
+        neonLight.style.left = `${event.clientX - -15}px`;
+        document.body.appendChild(neonLight);
+
+        setTimeout(() => {
+            neonLight.remove();
+        }, 500);
+    });
+
+    // Function to format AI response
+    function formatAIResponse(response) {
+        // Replace multiple asterisks or newlines with a single line break
+        return response.replace(/\*+/g, '<br>').replace(/\n+/g, '<br>').replace(/<br>\s*<br>/g, '<br>'); 
+}
+
+
+    // Function to display messages in the chat
+    function addMessage(sender, message) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender);
+    
+    const messageTextDiv = document.createElement('div');
+    messageTextDiv.classList.add('message-text');
+
+    // Handle both array and single message formats as plain text
+    if (Array.isArray(message)) {
+        // Join array items into a single string separated by new lines
+        messageTextDiv.innerHTML = formatAIResponse(message.join('<br>')); 
+    } else {
+        messageTextDiv.innerHTML = formatAIResponse(message); // Display single message
+    }
+
+    messageDiv.appendChild(messageTextDiv);
+    chatbox.appendChild(messageDiv);
+    chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom of the chat
+}
+
+    // Function to handle sending the message
+    sendBtn.addEventListener('click', () => {
+        const message = userInput.value;
+        if (message) {
+            // Remove "History cleared." message
+            const botMessages = chatbox.querySelectorAll('.bot .message-text');
+            botMessages.forEach(botMessage => {
+                if (botMessage.textContent.includes("History cleared.")) {
+                    botMessage.parentElement.remove();
+                }
+            });
+
+            // Add user's message to the chatbox
+            addMessage('user', `You: ${message}`);
+
+            // Send the message to the API
+            fetch('http://127.0.0.1:5000/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                addMessage('bot', `Tam: ${data.response}`);
+            })
+            .catch(error => {
+                addMessage('bot', 'Error: Could not connect to the server.');
+            });
+
+            userInput.value = '';
+        }
+    });
+
+    // Allow pressing "Enter" to send the message
+    userInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            sendBtn.click();
+        }
+    });
+
+    // Show chat container when "Get Started" is clicked
+    getStartedBtn.addEventListener('click', () => {
+        document.querySelector('p').style.display = 'none'; // Hide the welcome text
+        buttonContainer.style.display = 'none';
+        chatContainer.style.display = 'flex';
+        document.getElementById('developer-page-btn').style.display = 'block'; // Show the developer button
+    });
+
+    // Add animation when clicking on the developer page button
+    document.getElementById('developer-page-btn').addEventListener('click', (event) => {
+    // Prevent default behavior
+        event.preventDefault();
+
+        // Add fade-out class to body or any container you want to animate
+        document.body.classList.add('fade-out');
+
+        // Delay the redirection to developers page
+        setTimeout(() => {
+            window.location.href = 'developers.html'; // Redirect to developers page
+        }, 1000); // Delay redirection for the duration of the animation (1 second)
+    });
+
+
+    // Clear chat history
+    clearHistoryBtn.addEventListener('click', () => {
+        fetch('http://127.0.0.1:5000/clear_history', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: 'user123' }),
+        })
+        .then(response => {
+            chatbox.innerHTML = ''; // Clear chat messages on UI
+            addMessage('bot', "History cleared.");
+        })
+        .catch(error => {
+            addMessage('bot', 'Error: Could not clear history.');
+        });
+    });
+
+    // Toggle between light and dark modes
+    modeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        document.body.classList.toggle('dark-mode');
+
+        if (document.body.classList.contains('light-mode')) {
+            modeToggle.classList.replace('dark-mode-btn', 'light-mode-btn');
+        } else {
+            modeToggle.classList.replace('light-mode-btn', 'dark-mode-btn');
+        }
+    });
+
+        // Disables the right click of mouse
+        document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+        // Disables shortcut keys
+        document.addEventListener('keydown', function(e) {
+        // Disable F12 key
+        if (e.key === 'F12') {
+            e.preventDefault();
+        }
+        // Disable Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+            e.preventDefault();
+        }
+        // Disable Ctrl+Shift+J (Console)
+        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+            e.preventDefault();
+        }
+        // Disable Ctrl+U (View Source)
+        if (e.ctrlKey && e.key === 'u') {
+            e.preventDefault();
+        }
+    });
+
+</script>
+
+</body>
+</html>
